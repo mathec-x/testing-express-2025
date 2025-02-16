@@ -7,12 +7,13 @@ Content-Type: application/json
 
 {
     "name": "John Doe",
-    "email": "email@test3.com.br",
+    "email": "email@test4.com.br",
     "password": "123456",
     "role": "ADMIN"
 }
 
-@uuid=07b2853d-4a07-4521-9bc7-e4a44ed1d4a9
+### set user uuid
+@uuid=065ebc6f-78e8-4383-aeda-f24b4ecc56cf
 
 ### get one user
 GET http://localhost:3001/api/users/{{uuid}}
@@ -22,6 +23,7 @@ PUT http://localhost:3001/api/users/{{uuid}}
 Content-Type: application/json
 
 {
-    "name": "John Teste",
-    "email": "test@teste.com"
+    "name": "Richard Tompson",
+    "email": "richard@tompson.com",
+    "role": "USER"
 }
