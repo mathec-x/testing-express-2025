@@ -11,13 +11,22 @@ winston.addColors({
   verbose: 'gray'
 });
 
+const parsePascalCase = (label?: string) => {
+  return label
+    ? label
+      .replace(/[_\-\s]+/g, ' ')
+      .replace(/(^\w|\b\w)/g, (match) => match.toUpperCase())
+      .replace(/\s+/g, '')
+    : undefined
+}
+
 export const logger = (context: string) => {
   return winston.createLogger({
     level: env.LOG_LEVEL,
     format: winston.format.combine(
       winston.format.timestamp({ format: 'DD/MM/YYYY, HH:mm:ss' }),
       winston.format.colorize({ message: true }),
-      winston.format.label({ label: context.toUpperCase(), message: true }),
+      winston.format.label({ label: parsePascalCase(context), message: true }),
       winston.format.printf(({ level, message, timestamp, correlationId }) => {
         const pid = correlationId ? String(correlationId).slice(-5) : process.pid;
         const lv = level.toUpperCase().padStart(7);
