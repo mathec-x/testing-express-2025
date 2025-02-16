@@ -1,10 +1,11 @@
 {
   "name": "pant-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "dev": "node --import=tsx --env-file=.env.development --watch src/index.ts",
-    "build": "tsup src --format esm,cjs",
+    "start": "node --env-file=.env.production dist/index.js",
+    "build": "tsup src",
     "test": "dotenv -e .env.test -- jest",
     "db:generate": "prisma generate",
     "db:studio": "dotenv -e .env.development -- prisma studio",
@@ -12,8 +13,8 @@
     "db:down": "docker-compose -f ./docker/database/docker-compose.yml down",
     "db:migrate:dev": "prisma generate && dotenv -e .env.development -- prisma migrate dev"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["typescript", "nodejs", "express", "prisma", "docker", "jest", "eslint", "swagger"],
+  "author": "Matheus Corrêa",
   "license": "ISC",
   "description": "",
   "devDependencies": {
@@ -40,7 +41,16 @@
     "@prisma/client": "^6.3.1",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
+    "express": "^4.21.2",
     "winston": "^3.17.0",
     "zod": "^3.24.2"
+  },
+  "tsup": {
+    "entry": ["src/index.ts"],
+    "splitting": true,
+    "sourcemap": false,
+    "clean": true,
+    "minify": false,
+    "mangle": false
   }
 }

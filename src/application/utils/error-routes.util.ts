@@ -9,18 +9,15 @@ export const errorRouterHandler = (req: Request, res: Response, error: any) => {
         if ('target' in error.meta) {
           target.push(error.meta.target as string);
         }
-        res.status(400).json({ message: `Unique constraint for [${target.join()}] error` });
-        break;
+        return res.status(400).json({ message: `Unique constraint for [${target.join()}] error` });
       case 'P2025':
-        res.status(404).json({ message: 'Record not found' });
-        break;
+        return res.status(404).json({ message: 'Record not found' });
       default:
         req.logger.error(error.message, error);
-        res.status(500).json({ message: error.message, code: error.code });
-        break;
+        return res.status(500).json({ message: error.message, code: error.code });
     }
-  } else {
-    req.logger.error(error.message, error);
-    res.status(500).json({ message: 'Internal server error' });
   }
+
+  req.logger.error(error.message, error);
+  return res.status(500).json({ message: 'Internal server error' });
 };
