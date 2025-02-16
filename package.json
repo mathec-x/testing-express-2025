@@ -1,0 +1,44 @@
+{
+  "name": "pant-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --import=tsx --env-file=.env.development --watch src/index.ts",
+    "build": "tsup src --format esm,cjs",
+    "test": "dotenv -e .env.test -- jest",
+    "db:generate": "prisma generate",
+    "db:studio": "dotenv -e .env.development -- prisma studio",
+    "db:up": "docker-compose -f ./docker/database/docker-compose.yml up -d",
+    "db:down": "docker-compose -f ./docker/database/docker-compose.yml down",
+    "db:migrate:dev": "prisma generate && dotenv -e .env.development -- prisma migrate dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "dotenv-cli": "^8.0.0",
+    "eslint": "^8.57.1",
+    "eslint-config-standard-with-typescript": "^43.0.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.6.0",
+    "globals": "^15.15.0",
+    "prisma": "^6.3.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "tsup": "^8.3.6",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.24.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.3.1",
+    "cors": "^2.8.5",
+    "winston": "^3.17.0",
+    "zod": "^3.24.2"
+  }
+}

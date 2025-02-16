@@ -1,0 +1,27 @@
+### list users
+GET http://localhost:3001/api/users
+
+### create new user
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "email@test3.com.br",
+    "password": "123456",
+    "role": "ADMIN"
+}
+
+@uuid=07b2853d-4a07-4521-9bc7-e4a44ed1d4a9
+
+### get one user
+GET http://localhost:3001/api/users/{{uuid}}
+
+### update one user
+PUT http://localhost:3001/api/users/{{uuid}}
+Content-Type: application/json
+
+{
+    "name": "John Teste",
+    "email": "test@teste.com"
+}
