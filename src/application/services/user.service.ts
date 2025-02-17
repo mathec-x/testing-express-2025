@@ -1,19 +1,17 @@
 import { IHashService } from '@/domain/services/hashService/IHashService';
 import { IUserService } from '@/domain/services/userService/IUserService';
 import { logger } from '@/infra/config/logger.config';
-import { prisma } from '@/infra/database/database';
 import { userBasicSelect, UserBasicSelect, userSingleSelect, UserSingleSelect } from '@/types/user';
 import { Prisma } from '@prisma/client';
+import prisma from '@/infra/database/database';
 
 export class UserService implements IUserService {
   private readonly logger = logger(UserService.name);
 
-  constructor(
-    private readonly hashService: IHashService
-  ) {}
+  constructor(private readonly hashService: IHashService) {}
 
   async createUser(data: Prisma.UserCreateInput): Promise<UserSingleSelect> {
-    this.logger.info('Creating user with data', data);
+    this.logger.debug('Creating user with data', data);
     return await prisma.user.create({
       select: userSingleSelect,
       data
@@ -21,7 +19,7 @@ export class UserService implements IUserService {
   }
 
   async updateUser(uuid: string, data: Prisma.UserUpdateInput): Promise<UserSingleSelect> {
-    this.logger.info(`Updating user with uuid: ${uuid}`, data);
+    this.logger.debug(`Updating user with uuid: ${uuid}`, data);
     return await prisma.user.update({
       select: userSingleSelect,
       where: { uuid },
@@ -30,19 +28,20 @@ export class UserService implements IUserService {
   }
 
   async getUsers(query: any): Promise<UserBasicSelect[]> {
-    this.logger.info('Getting users with query', query);
+    this.logger.debug(`Filtering users`, query);
     return await prisma.user.findMany({
       select: userBasicSelect,
       where: {
         name: {
-          contains: query.name || ''
+          contains: query.name || '',
+          mode: 'insensitive'
         }
       }
     });
   }
 
   async getUser(uuid: string): Promise<UserSingleSelect> {
-    this.logger.info(`Getting user with uuid: ${uuid}`);
+    this.logger.debug(`Getting user by uuid`, uuid);
     return await prisma.user.findFirstOrThrow({
       select: userSingleSelect,
       where: { uuid }
