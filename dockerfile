@@ -7,9 +7,10 @@ RUN npm install pg
 
 FROM base as development
 ENV NODE_ENV=development
-RUN npm ci --only=dev
+RUN npm ci
 RUN npm install pg
 COPY . .
+RUN npm run db:generate
 CMD ["npm", "run", "start:dev"]
 
 FROM base as production
