@@ -1,14 +1,12 @@
+import prisma from '@/infra/database/database';
 import { IHashService } from '@/domain/services/hashService/IHashService';
 import { IUserService } from '@/domain/services/userService/IUserService';
-import { logger } from '@/infra/config/logger.config';
 import { userBasicSelect, UserBasicSelect, userSingleSelect, UserSingleSelect } from '@/types/user';
 import { Prisma } from '@prisma/client';
-import prisma from '@/infra/database/database';
+import { ILoggerService } from '@/domain/services/logger/ILoggerService';
 
 export class UserService implements IUserService {
-  private readonly logger = logger(UserService.name);
-
-  constructor(private readonly hashService: IHashService) {}
+  constructor(private readonly hashService: IHashService, private readonly logger: ILoggerService) {}
 
   async createUser(data: Prisma.UserCreateInput): Promise<UserSingleSelect> {
     this.logger.debug('Creating user with data', data);
