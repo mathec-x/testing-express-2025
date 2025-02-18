@@ -11,19 +11,24 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(loggerMiddleware);
+app.use(express.static(path.resolve(process.cwd(), 'public')));
 
-const swaggerDocument = YAML.load(path.resolve(process.cwd(), 'public/swagger.yaml'));
+app.get('/', (req, res) => {
+  res.send('Health check ok!!');
+});
+
+const swaggerPath = path.resolve(process.cwd(), 'public/swagger.yaml');
+console.log('Swagger yaml loaded in', swaggerPath);
+
+const swaggerDocument = YAML.load(swaggerPath);
+
 app.use(
-  '/docs',
+  '/api-docs',
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, {
     swaggerUrl: '/swagger.yaml'
   })
 );
-
-app.get('/', (req, res) => {
-  res.send('Health check ok!!');
-});
 
 app.use('/api', routes);
 
