@@ -1,8 +1,11 @@
+# instale o rest client no vscode para rodar os requests
+# mude de enviroment para testar os requests (ctrl + alt + e) e selecione o enviroment 
+
 ### list users
-GET http://localhost:3001/api/users?name=Doe
+GET {{host}}/api/users?name=Doe
 
 ### create user
-POST http://localhost:3001/api/users
+POST {{host}}/api/users
 Content-Type: application/json
 
 {
@@ -13,13 +16,13 @@ Content-Type: application/json
 }
 
 ### set user uuid
-@uuid=3833c394-2e63-4f3b-8aa0-b6c14fd9b8ae
+@uuid=c8068e9c-8939-4139-b63d-017d71971bc7
 
 ### get one user
-GET http://localhost:3001/api/users/{{uuid}}
+GET {{host}}/api/users/{{uuid}}
 
 ### update one user
-PUT http://localhost:3001/api/users/{{uuid}}
+PUT {{host}}/api/users/{{uuid}}
 Content-Type: application/json
 
 {
@@ -29,4 +32,4 @@ Content-Type: application/json
 }
 
 ### filter user
-GET http://localhost:3001/api/users?name=richard
+GET {{host}}/api/users?name=richard

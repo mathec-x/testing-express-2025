@@ -6,7 +6,7 @@ import { userFactory } from '../factories/user.factory';
 export const getUser = async (req: Request<{ uuid: string }, any, any>, res: Response) => {
   try {
     req.logger.info(`Request get user with uuid: ${req.params.uuid}`);
-    const user = await userFactory.getUser(req.params.uuid);
+    const user = await userFactory(req).getUser(req.params.uuid);
     req.logger.info('User found', user);
     res.status(200).json(user);
   } catch (error) {
@@ -17,7 +17,7 @@ export const getUser = async (req: Request<{ uuid: string }, any, any>, res: Res
 export const getUsers = async (req: Request, res: Response) => {
   try {
     req.logger.info(`Filter users with query '${req.query.name}'`);
-    const users = await userFactory.getUsers(req.query);
+    const users = await userFactory(req).getUsers(req.query);
     req.logger.info(`Users found ${users.length}`, users);
     res.json(users);
   } catch (error) {
@@ -31,13 +31,16 @@ export const createUser = async (req: Request, res: Response) => {
     const validation = userSchema.safeParse(req.body);
     if (validation.success) {
       if (validation.data.password) {
-        validation.data.password = await userFactory.hashPassword(validation.data.password);
+        validation.data.password = await userFactory(req).hashPassword(validation.data.password);
       }
-      const user = await userFactory.createUser(validation.data);
+      const user = await userFactory(req).createUser(validation.data);
       req.logger.info('User created successfully', user);
       res.status(201).json(user);
     } else {
-      req.logger.error(`Validation error ${validation.error.errors.map( err => err.path).join()}`, validation.error.format());
+      req.logger.error(
+        `Validation error ${validation.error.errors.map((err) => err.path).join()}`,
+        validation.error.format()
+      );
       res.status(400).json(validation.error.format());
     }
   } catch (error) {
@@ -51,13 +54,16 @@ export const updateUser = async (req: Request, res: Response) => {
     const validation = userSchema.partial().safeParse(req.body);
     if (validation.success) {
       if (validation.data.password) {
-        validation.data.password = await userFactory.hashPassword(validation.data.password);
+        validation.data.password = await userFactory(req).hashPassword(validation.data.password);
       }
-      const user = await userFactory.updateUser(req.params.uuid, validation.data);
+      const user = await userFactory(req).updateUser(req.params.uuid, validation.data);
       req.logger.info('User updated successfully', user);
       res.json(user);
     } else {
-      req.logger.error(`Validation error ${validation.error.errors.map( err => err.path).join()}`, validation.error.format());
+      req.logger.error(
+        `Validation error ${validation.error.errors.map((err) => err.path).join()}`,
+        validation.error.format()
+      );
       res.status(400).json(validation.error.format());
     }
   } catch (error) {
