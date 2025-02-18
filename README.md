@@ -4,7 +4,7 @@
 
 ### Pré-requisitos
 
-- Node.js (versão 14 ou superior)
+- Node.js (versão 22 ou nvm)
 - Docker
 - Docker Compose
 
@@ -24,6 +24,11 @@ npm run db:up
 3. **Executar o projeto em modo de desenvolvimento:**
 ```bash
 npm run dev
+```
+
+4. **Executar testes e2e:**
+```bash
+npm run test
 ```
 
 ### Outros scripts úteis
