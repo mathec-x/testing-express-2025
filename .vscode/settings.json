@@ -6,5 +6,14 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb, .nvmrc, prettier.config.js, .eslintrc.js, .eslintignore, .prettierrc, .prettierrc.js, .prettierrc.json, .prettierrc.yaml, .prettierrc.yml, .prettierrc.toml, .prettierrc.cjs, .prettierrc.config.js., .env*, .git*, eslint*, *config.js, *config.json, *config.yaml, *config.yml, *config.toml, *config.cjs, *config.config.js"
+  },
+  "rest-client.environmentVariables": {
+    "$shared": {},
+    "local": {
+      "base_host": "http://localhost:3001"
+    },
+    "cloud": {
+      "base_host": "https://pantore.onrender.com"
+    },
   }
 }
