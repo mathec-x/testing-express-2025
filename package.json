@@ -6,7 +6,7 @@
     "dev": "npm run db:up && npm run db:migrate:dev && npm run start:dev",
     "start:dev": "node --import=tsx --env-file=.env.development --watch src/index.ts",
     "start:prod": "node --env-file=.env.production dist/index.js",
-    "build": "tsup src",
+    "build": "npm run db:generate && tsup src",
     "test": "dotenv -e .env.test jest --coverage",
     "test:watch": "dotenv -e .env.test jest -- --watch --no-coverage",
     "db:generate": "prisma generate",
