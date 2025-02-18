@@ -2,10 +2,10 @@
 # mude de enviroment para testar os requests (ctrl + alt + e) e selecione o enviroment 
 
 ### list users
-GET {base_host}/api/users?name=Doe
+GET {{host}}/api/users?name=Doe
 
 ### create user
-POST {base_host}/api/users
+POST {{host}}/api/users
 Content-Type: application/json
 
 {
@@ -19,10 +19,10 @@ Content-Type: application/json
 @uuid=c8068e9c-8939-4139-b63d-017d71971bc7
 
 ### get one user
-GET {base_host}/api/users/{{uuid}}
+GET {{host}}/api/users/{{uuid}}
 
 ### update one user
-PUT {base_host}/api/users/{{uuid}}
+PUT {{host}}/api/users/{{uuid}}
 Content-Type: application/json
 
 {
@@ -32,4 +32,4 @@ Content-Type: application/json
 }
 
 ### filter user
-GET {base_host}/api/users?name=richard
+GET {{host}}/api/users?name=richard

@@ -10,10 +10,10 @@
   "rest-client.environmentVariables": {
     "$shared": {},
     "local": {
-      "base_host": "http://localhost:3001"
+      "host": "http://localhost:3001"
     },
     "cloud": {
-      "base_host": "https://pantore.onrender.com"
+      "host": "https://pantore.onrender.com"
     },
   }
 }
