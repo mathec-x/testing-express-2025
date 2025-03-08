@@ -200,7 +200,7 @@
 └── package.json
 ```
 
-## Clean Archiecure e DDD (Domain-Driven Design)
+## Clean Architecture e DDD (Domain-Driven Design)
 👉 Objetivo: Criar um código organizado e modular, com regras de negócio no centro e camadas externas dependentes dele.
 
 📌 Principais conceitos:
